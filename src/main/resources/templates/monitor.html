@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xsi:schemaLocation="http://www.thymleaf.org
+http://www.thymleaf.org ">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Monitor</title>
+</head>
+<body>
+<div class="center-pill">
+    <form class="form-inline" method="post" action="/monitor/filter">
+        <input type="text" id="filterURIPath" name="filterURIPath" class="form-control" size="10"
+               placeholder="/, /page1">
+        <input type="text" id="filterURIResponseTime" name="filterURIResponseTime" class="form-control" size="10"
+               placeholder="1000 ms">
+        <input type="text" id="filterURIDataByWord" name="filterURIDataByWord" class="form-control" size="10"
+               placeholder="Type Some Word">
+        <button type="submit" class="btn btn-danger" id="uriFilter">Filter Request Path</button>
+    </form>
+</div>
+
+<div class="container">
+    <div th:if="${not #lists.isEmpty(monitorList)}">
+        <h2>Monitoring</h2>
+        <table class="table-row-cell">
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Time, ms</th>
+                <th>Length</th>
+            </tr>
+            <tr th:each="row : ${monitorList}">
+                <td th:text="${row.ID}" th:attr="${row.validation} ? 'bgcolor=white' : bgcolor=red"></td>
+                <td th:text="${row.Status}" th:attr="${row.validation} ? 'bgcolor=white' : bgcolor=red"></td>
+                <td th:text="${row.Time}" th:attr="${row.validation} ? 'bgcolor=white' : bgcolor=red"></td>
+                <td th:text="${row.ResponseLength}" th:attr="${row.validation} ? 'bgcolor=white' : bgcolor=red"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
